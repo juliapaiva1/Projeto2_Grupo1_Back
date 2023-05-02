@@ -19,8 +19,8 @@ public class EntregadorService {
         return entregadorRepository.findById(id).orElse(null);
     }
 
-    public List<Entregador> findByNomeEntregador(String nome) {
-        return entregadorRepository.findByNomeEntregador(nome);
+    public Entregador findByNomeEntregador(String nome) {
+        return entregadorRepository.findByNome(nome);
     }
 
     public Entregador save(Entregador entregador) {
@@ -30,5 +30,4 @@ public class EntregadorService {
     public void deleteById(Integer id) {
         entregadorRepository.deleteById(id);
     }
-
 }

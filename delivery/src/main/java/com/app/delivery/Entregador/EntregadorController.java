@@ -23,7 +23,7 @@ public class EntregadorController {
     }
 
     @GetMapping("/nome/{nome}")
-    public List<Entregador> findByNomeEntregador(@PathVariable String nome) {
+    public Entregador findByNomeEntregador(@PathVariable String nome) {
         return entregadorService.findByNomeEntregador(nome);
     }
 
