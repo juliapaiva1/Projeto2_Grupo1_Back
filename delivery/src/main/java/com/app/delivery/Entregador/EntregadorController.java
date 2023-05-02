@@ -37,4 +37,10 @@ public class EntregadorController {
         entregadorService.deleteById(id);
     }
 
+    @PutMapping("/{id}")
+    public Entregador update(@PathVariable Integer id, @RequestBody Entregador entregador) {
+        return entregadorService.update(id, entregador);
+    }
+ 
+
 }

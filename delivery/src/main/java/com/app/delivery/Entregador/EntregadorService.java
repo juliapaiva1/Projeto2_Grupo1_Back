@@ -30,4 +30,11 @@ public class EntregadorService {
     public void deleteById(Integer id) {
         entregadorRepository.deleteById(id);
     }
+
+    public Entregador update(Integer id, Entregador entregador) {
+        Entregador entregadorUpdate = entregadorRepository.findById(id).orElse(null);
+        entregadorRepository.save(entregadorUpdate);
+        return entregadorUpdate;
+    }
+
 }
