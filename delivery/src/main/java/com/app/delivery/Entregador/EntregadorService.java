@@ -15,7 +15,7 @@ public class EntregadorService {
         return entregadorRepository.findAll();
     }
 
-    public Entregador findById(Integer id) {
+    public Entregador findById(Long id) {
         return entregadorRepository.findById(id).orElse(null);
     }
 
@@ -27,14 +27,18 @@ public class EntregadorService {
         return entregadorRepository.save(entregador);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         entregadorRepository.deleteById(id);
     }
 
-    public Entregador update(Integer id, Entregador entregador) {
+    public Entregador update(Long id, Entregador entregador) {
         Entregador entregadorUpdate = entregadorRepository.findById(id).orElse(null);
         entregadorRepository.save(entregadorUpdate);
         return entregadorUpdate;
+    }
+
+    public boolean existsbyId(Long id) {
+        return entregadorRepository.existsById(id);
     }
 
 }

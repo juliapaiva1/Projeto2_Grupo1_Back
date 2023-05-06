@@ -2,6 +2,8 @@ package com.app.delivery.Entregador;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -13,34 +15,46 @@ public class EntregadorController {
     private EntregadorService entregadorService;
 
     @GetMapping
-    public List<Entregador> findAll() {
-        return entregadorService.findAll();
+    public List<EntregadorDTO> findAll() {
+        List<Entregador> entregadores = entregadorService.findAll();
+        return EntregadorDTO.converter(entregadores);
     }
 
     @GetMapping("/{id}")
-    public Entregador findById(@PathVariable Integer id) {
-        return entregadorService.findById(id);
+    public EntregadorDTO findById(@PathVariable Long id) {
+        Entregador entregador = entregadorService.findById(id);
+        return new EntregadorDTO(entregador);
     }
 
     @GetMapping("/nome/{nome}")
-    public Entregador findByNomeEntregador(@PathVariable String nome) {
-        return entregadorService.findByNomeEntregador(nome);
+    public EntregadorDTO findByNomeEntregador(@PathVariable String nome) {
+        Entregador entregador = entregadorService.findByNomeEntregador(nome);
+        return new EntregadorDTO(entregador);
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Entregador save(@RequestBody Entregador entregador) {
         return entregadorService.save(entregador);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        if (!entregadorService.existsbyId(id)) {
+            return ResponseEntity.notFound().build();
+        }
         entregadorService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public Entregador update(@PathVariable Integer id, @RequestBody Entregador entregador) {
-        return entregadorService.update(id, entregador);
+    public ResponseEntity<Entregador> update(@PathVariable Long id, @RequestBody Entregador entregador) {
+        if (!entregadorService.existsbyId(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        entregador.setId(id);
+        entregador = entregadorService.save(entregador);
+        return ResponseEntity.ok(entregador);
     }
- 
 
 }

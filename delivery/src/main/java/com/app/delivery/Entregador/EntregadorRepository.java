@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface EntregadorRepository extends JpaRepository<Entregador, Integer> {
+public interface EntregadorRepository extends JpaRepository<Entregador, Long> {
     Entregador findByNome(String nome);
 }
     
