@@ -45,7 +45,7 @@ public class EntregadorControllerTest {
     }
 
     @Test
-    public void test_findall_entregadores() {
+    public void test_lista_todos_entregadores() {
 
         List<Entregador> entregadores = new ArrayList<>();
 
@@ -82,7 +82,7 @@ public class EntregadorControllerTest {
     }
 
     @Test
-    public void test_findById_entregador() {
+    public void test_lista_entregador_id() {
 
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
@@ -103,7 +103,7 @@ public class EntregadorControllerTest {
     }
     
     @Test
-    public void test_findByNomeEntregador() {
+    public void test_lista_entregador_nome() {
 
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
@@ -126,7 +126,7 @@ public class EntregadorControllerTest {
 
 
     @Test
-    public void test_DeleteById() {
+    public void test_deleta_entregador() {
         
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
@@ -144,7 +144,7 @@ public class EntregadorControllerTest {
     }
 
     @Test
-    public void test_Update() {
+    public void test_edita_entregador() {
         
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);

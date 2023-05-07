@@ -3,23 +3,18 @@ package com.app.delivery.Entregador;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-
+@ExtendWith(MockitoExtension.class)
 public class EntregadorServiceTest {
-
-    MockMvc mockMvc;
 
     @Mock
     private EntregadorRepository entregadorRepository;
@@ -27,13 +22,8 @@ public class EntregadorServiceTest {
     @InjectMocks
     private EntregadorService entregadorService;
 
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(entregadorService).build();
-    }
-
     @Test
-    public void testFindAll() {
+    public void test_lista_entregadores() {
 
         List<Entregador> entregadores = new ArrayList<>();
 
@@ -54,7 +44,7 @@ public class EntregadorServiceTest {
         entregador2.setPreco_viagem((double) 9.5);
         entregador2.setStatus_ocupacao(EntregadorOcupacao.DISPONIVEL);
         entregador2.setStatus_utilizacao(EntregadorUtilizacao.LIBERADO);
-        
+
         entregadores.add(entregador1);
         entregadores.add(entregador2);
         when(entregadorRepository.findAll()).thenReturn(entregadores);
@@ -66,7 +56,7 @@ public class EntregadorServiceTest {
     }
 
     @Test
-    public void testFindById() {
+    public void test_encontra_por_id() {
 
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
@@ -86,7 +76,7 @@ public class EntregadorServiceTest {
     }
 
     @Test
-    public void testFindByNomeEntregador() {
+    public void test_encontra_por_nome() {
 
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
@@ -106,8 +96,8 @@ public class EntregadorServiceTest {
     }
 
     @Test
-    public void testSave() {
-        
+    public void test_salva_entregador() {
+
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
         entregador.setNome("Carlos");
@@ -125,8 +115,8 @@ public class EntregadorServiceTest {
         assertEquals(entregador, result);
     }
 
-@Test
-    public void testDeleteByIdExists() {
+    @Test
+    public void test_exclui_entregador() {
 
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
@@ -137,14 +127,13 @@ public class EntregadorServiceTest {
         entregador.setStatus_ocupacao(EntregadorOcupacao.DISPONIVEL);
         entregador.setStatus_utilizacao(EntregadorUtilizacao.LIBERADO);
 
-        when(entregadorRepository.existsById((long) 1)).thenReturn(true);
-
         entregadorService.deleteById((long) 1);
 
         verify(entregadorRepository).deleteById((long) 1);
     }
 
-    public void testUpdateExists() {
+    @Test
+    public void test_altera_dados_entregador() {
 
         Entregador entregador = new Entregador();
         entregador.setId((long) 1);
@@ -159,11 +148,13 @@ public class EntregadorServiceTest {
         when(entregadorRepository.findById((long) 1)).thenReturn(Optional.of(entregador));
         when(entregadorRepository.save(any(Entregador.class))).thenReturn(entregador);
 
+        boolean existsBeforeUpdate = entregadorService.existsbyId((long) 1);
         Entregador result = entregadorService.update((long) 1, entregador);
 
         verify(entregadorRepository).existsById((long) 1);
         verify(entregadorRepository).findById((long) 1);
         verify(entregadorRepository).save(any(Entregador.class));
+        assertTrue(existsBeforeUpdate);
         assertEquals(entregador, result);
     }
 
