@@ -21,10 +21,10 @@ public class EntregadorDTO {
 
     public EntregadorDTO (Entregador entregador){
         this.id = entregador.getId();
-        // this.nome = entregador.getNome();
-        // this.cpf = entregador.getCpf();
+        this.nome = entregador.getNome();
+        this.cpf = entregador.getCpf();
         this.tipo_veiculo = entregador.getTipo_veiculo();
-        // this.preco_viagem = entregador.getPreco_viagem();
+        this.preco_viagem = entregador.getPreco_viagem();
         this.status_ocupacao = entregador.getStatus_ocupacao();
         this.status_utilizacao = entregador.getStatus_utilizacao();
     }
