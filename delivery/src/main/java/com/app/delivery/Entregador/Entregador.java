@@ -37,12 +37,10 @@ public class Entregador {
 
     @Column
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Status de ocupação é obrigatório")
     private EntregadorOcupacao status_ocupacao;
 
     @Column
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Status de utilização é obrigatório")
     private EntregadorUtilizacao status_utilizacao;
 
 }
