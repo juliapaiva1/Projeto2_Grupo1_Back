@@ -56,6 +56,35 @@ public class EntregadorServiceTest {
     }
 
     @Test
+    public void test_lista_entregadores_entregadoresVazios() {
+
+        List<Entregador> entregadores = new ArrayList<>();
+
+        when(entregadorRepository.findAll()).thenReturn(entregadores);
+
+        List<Entregador> result = entregadorService.findAll();
+
+        verify(entregadorRepository).findAll();
+        assertEquals(entregadores, result);
+}
+
+    @Test
+    public void test_encontra_por_nome_vazio() {
+        Entregador entregador = new Entregador();
+        entregador.setId((long) 1);
+        entregador.setNome("");
+        entregador.setCpf("");
+        entregador.setTipo_veiculo("");
+        entregador.setPreco_viagem((double) 0);
+        entregador.setStatus_ocupacao(EntregadorOcupacao.DISPONIVEL);
+        entregador.setStatus_utilizacao(EntregadorUtilizacao.LIBERADO);
+        when(entregadorRepository.findByNome("")).thenReturn(entregador);
+        Entregador result = entregadorService.findByNomeEntregador("");
+        verify(entregadorRepository).findByNome("");
+        assertEquals(entregador, result);
+    }
+
+    @Test
     public void test_encontra_por_id() {
 
         Entregador entregador = new Entregador();

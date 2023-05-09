@@ -45,6 +45,17 @@ public class EntregadorControllerTest {
     }
 
     @Test
+    public void test_criar_entregador_campos_em_branco() {
+        Entregador entregador = new Entregador();
+        when(entregadorService.save(entregador)).thenReturn(entregador);
+        
+        Entregador savedEntregador = entregadorController.save(entregador);
+        
+        verify(entregadorService, times(1)).save(entregador);
+        Assertions.assertEquals(entregador, savedEntregador);
+}
+
+    @Test
     public void test_lista_todos_entregadores() {
 
         List<Entregador> entregadores = new ArrayList<>();
@@ -101,6 +112,7 @@ public class EntregadorControllerTest {
         Assertions.assertEquals(entregador.getId(), entregadorDTO.getId());
         Assertions.assertEquals(entregador.getNome(), entregadorDTO.getNome());
     }
+
     
     @Test
     public void test_lista_entregador_nome() {
@@ -124,6 +136,18 @@ public class EntregadorControllerTest {
         Assertions.assertEquals(entregador.getNome(), foundEntregador.getNome());
     }
 
+    @Test
+    public void test_lista_todos_entregadores_campos_em_branco() {
+        List<Entregador> entregadores = new ArrayList<>();
+        when(entregadorService.findAll()).thenReturn(entregadores);
+
+        List<EntregadorDTO> entregadorDTOs = entregadorController.findAll();
+
+        verify(entregadorService, times(1)).findAll();
+        Assertions.assertEquals(entregadores.size(), entregadorDTOs.size());
+}
+
+    
 
     @Test
     public void test_deleta_entregador() {
@@ -141,6 +165,16 @@ public class EntregadorControllerTest {
         ResponseEntity<Void> response = entregadorController.deleteById((long) 1);
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(entregadorService, times(1)).deleteById((long) 1);
+    }
+
+    @Test
+    public void test_lista_todos_entregadores_lista_vazia() {
+        when(entregadorService.findAll()).thenReturn(new ArrayList<>());
+
+        List<EntregadorDTO> entregadorDTOs = entregadorController.findAll();
+
+        verify(entregadorService, times(1)).findAll();
+        Assertions.assertTrue(entregadorDTOs.isEmpty());
     }
 
     @Test
