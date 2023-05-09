@@ -1,5 +1,6 @@
 package com.app.delivery.Entregador;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class EntregadorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Entregador save(@RequestBody Entregador entregador) {
+    public Entregador save(@Valid @RequestBody Entregador entregador) {
         return entregadorService.save(entregador);
     }
 
@@ -48,7 +49,7 @@ public class EntregadorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Entregador> update(@PathVariable Long id, @RequestBody Entregador entregador) {
+    public ResponseEntity<Entregador> update(@Valid @PathVariable Long id, @RequestBody Entregador entregador) {
         if (!entregadorService.existsbyId(id)) {
             return ResponseEntity.notFound().build();
         }
