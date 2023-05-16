@@ -33,9 +33,14 @@ public class EntregadorService {
 
     public Entregador update(Long id, Entregador entregador) {
         Entregador entregadorUpdate = entregadorRepository.findById(id).orElse(null);
-        entregadorRepository.save(entregadorUpdate);
-        return entregadorUpdate;
-    }
+        if (entregadorUpdate != null) {
+            entregadorUpdate.setNome(entregador.getNome());
+            entregadorUpdate.setTipo_veiculo(entregador.getTipo_veiculo());
+            entregadorUpdate.setStatus_ocupacao(entregador.getStatus_ocupacao());
+            entregadorUpdate.setStatus_utilizacao(entregador.getStatus_utilizacao());
+            entregadorRepository.save(entregadorUpdate);
+        }
+        return entregadorUpdate;}
 
     public boolean existsbyId(Long id) {
         return entregadorRepository.existsById(id);

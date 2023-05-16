@@ -53,9 +53,9 @@ public class EntregadorController {
         if (!entregadorService.existsbyId(id)) {
             return ResponseEntity.notFound().build();
         }
-        entregador.setId(id);
         entregador = entregadorService.save(entregador);
         return ResponseEntity.ok(entregador);
     }
+
 
 }
